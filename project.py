@@ -25,7 +25,7 @@ def RestaurantMenu(restaurant_id):
 # Task 1: Create route for newMenuItem function here
 
 
-@app.route('/restaurant/<int:restaurant_id>/new/')
+@app.route('/restaurant/<int:restaurant_id>/new/', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
     return "page to create a new menu item. Task 1 complete!"
 
