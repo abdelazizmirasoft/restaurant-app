@@ -29,14 +29,18 @@ def menuItemJSON(restaurant_id, menu_id):
 
 
 @app.route('/')
+@app.route('/restaurants/')
+def showRestaurants():
+    restaurant = session.query(Restaurant).all()
+    return render_template("menu.html", restaurant=restaurant, items=items)
+
+
 @app.route('/restaurants/<int:restaurant_id>/menu')
 def restaurantMenu(restaurant_id):
-    print("restaurant_id:"+str(restaurant_id))
     restaurant = session.query(Restaurant).filter_by(
         id=restaurant_id).first()
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id)
     return render_template("menu.html", restaurant=restaurant, items=items)
-
 # Task 1: Create route for newMenuItem function here
 
 
@@ -44,7 +48,10 @@ def restaurantMenu(restaurant_id):
 def newMenuItem(restaurant_id):
     if request.method == 'POST':
         newItem = MenuItem(
-            name=request.form['name'], restaurant_id=restaurant_id)
+            name=request.form['name'],
+            description=request.form['description'],
+            price=request.form['price'],
+            restaurant_id=restaurant_id)
         session.add(newItem)
         session.commit()
         flash("new menu item created!")
