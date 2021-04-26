@@ -1,40 +1,44 @@
-<html>
-<head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-<body>
+{% include 'layouts/header.html' %}
+	<div class="container">
+		<h1>Restaurants</h1>
+		
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				<div class="alert alert-info" role="alert"></div>
+					<ul>
+						{% for message in messages %}
+							<li> <strong> {{ message }} </strong> </li>
+						{% endfor %}
+					</ul>
+				</div>
+				{% endif %}
+			{% endwith %}
 
-<h1>Restaurants</h1>
+		
+		<div class = 'container'>
+			<div class="row">
+				<a type="button" class="btn btn-success" href = '{{url_for('newRestaurant') }}'>Create New Restaurant</a>
+			</div>
+			<br>
+			{% for restaurant in restaurants %}
 
-<div class = 'flash'>
-	{% with messages = get_flashed_messages() %}
-		{% if messages %}
-			<ul>
-				{% for message in messages %}
-					<li> <strong> {{ message }} </strong> </li>
-				{% endfor %}
-			</ul>
-		{% endif %}
-	{% endwith %}
+				<div class="row">
+					<div class="col">
+						<div class="card">
+							<div class="card-body">
+							<h5 class="card-title"><a href = "{{url_for('showMenu', restaurant_id = restaurant.id)}}"> <h3>{{restaurant.name}}</h3></a></h5>
+							<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+							<p class="card-text">
+								<a type="button" class="btn btn-primary  btn-sm" href = "{{url_for('editRestaurant',restaurant_id = restaurant.id)}}">Edit Restaurant</a>
+								<a type="button" class="btn btn-danger btn-sm" href = "{{url_for('deleteRestaurant',restaurant_id = restaurant.id)}}">Delete Restaurant</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
 
-</div>
-<div class = 'pane'>
-	<a href = '{{url_for('newRestaurant') }}'>Create New Restaurant</a>
-	{% for restaurant in restaurants %}
 
-		<div>
-
-			<a href = "{{url_for('showMenu', restaurant_id = restaurant.id)}}"> <h3>{{restaurant.name}}</h3></a>
-
-			<p><a href = "{{url_for('editRestaurant',restaurant_id = restaurant.id)}}">Edit Restaurant</a></p>
-
-			<p> <a href = "{{url_for('deleteRestaurant',restaurant_id = restaurant.id)}}">Delete Restaurant</a> </p>
-
+			{% endfor %}
 		</div>
-
-
-	{% endfor %}
-</div>
-</body>
-
-</html>
+	</div>
+{% include 'layouts/footer.html' %}

@@ -1,8 +1,4 @@
-<html>
-<head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-<body>
+{% include 'layouts/header.html' %}
 <h1> Are you sure you want to delete {{menu_id}}? </h1>
 
 <form action="{{ url_for('deleteMenuItem',restaurant_id = restaurant_id, menu_id=item.id)}}" method = 'post'>
@@ -13,6 +9,4 @@
 </form>
 
 <a href = '{{url_for('showMenu', restaurant_id = restaurant_id)}}'> Cancel </a>
-</body>
-
-</html>
+{% include 'layouts/footer.html' %}
