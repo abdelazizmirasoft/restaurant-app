@@ -1,26 +1,57 @@
 {% include 'layouts/header.html' %}
-
+<div class="container">
+	<div class="row" >
 <h1> Edit Menu Item </h1>
 
+</div>	
 <form action="{{ url_for('editMenuItem',restaurant_id = restaurant_id, menu_id=item.id)}}" method = 'post'>
 
-<dl>
-	<dt>Name:</dt>
-		<dd><input type ='text' size='30' name='name' placeholder='{{item.name }}'></dd>
-	<dt>Description:</dt>
-		<dd><textarea name = 'description' rows='5' cols='40' placeholder='{{item.description }}' > </textarea></dd>
-	<dt>Price:</dt>
-		<dd><input type = 'text' size = '8' name='price' placeholder='{{item.price }}'></dd>
-	<dt>Course:</dt>
-		<dd><input type ='radio' name='course' value='Appetizer'>Appetizer</dd>
-		<dd><input type ='radio' name='course' value='Entree'>Entree</dd>
-		<dd><input type ='radio' name='course' value='Dessert'>Dessert</dd>
-		<dd><input type ='radio' name='course' value='Beverage'>Beverage</dd>
+	<div class="row" >
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+			  <span class="input-group-text" id="inputGroup-sizing-default">Name:</span>
+			</div>
+			<input type="text" name='name' class="form-control" aria-label="Name:"  aria-describedby="inputGroup-sizing-default" placeholder='{{item.name }}'>
+		  </div>
+	</div>
+	<div class="row" >
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+			  <span class="input-group-text" id="inputGroup-sizing-default">Description:</span>
+			</div>
+			<textarea  type="text" name='description' class="form-control" aria-label="Description:"  aria-describedby="inputGroup-sizing-default">{{item.description }}</textarea>
+		  </div>
+	</div>
+	<div class="row" >
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+			  <span class="input-group-text" id="inputGroup-sizing-default">Price:</span>
+			</div>
+			<input type="text" size = '8' name='price' class="form-control" aria-label="Price:"  aria-describedby="inputGroup-sizing-default" placeholder='{{item.price }}'>
+			<div class="input-group-append">
+				<span class="input-group-text">.00</span>
+			  </div>
+		  </div>
+	</div>
+	<div class="row" >
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+			  <span class="input-group-text" id="inputGroup-sizing-default">Course:</span>
+			</div>
+		<div class="col-md-2"><input  type ='radio' name='course' value='Appetizer'>Appetizer</div>
+		<div class="col-md-2"><input type ='radio' name='course' value='Entree'>Entree</div>
+		<div class="col-md-2"><input type ='radio' name='course' value='Dessert'>Dessert</div>
+		<div class="col-md-2"><input type ='radio' name='course' value='Beverage'>Beverage</div>
+	
+		</div>
+	</div>
 
-</dl>
+<hr>
 
-<input type='submit' value='Edit'>
-
-<a href = '{{url_for('showMenu', restaurant_id = restaurant_id)}}'> Cancel </a>
+<div class="row" >
+	<div class="col-" >
+<input class="btn btn-primary btn-sm" type='submit' value='Edit'>
+</div>
+<a class="btn btn-light btn-sm"  href = '{{url_for('showMenu', restaurant_id = restaurant_id)}}'> Cancel </a>
 </form>
 {% include 'layouts/footer.html' %}

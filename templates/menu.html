@@ -1,71 +1,56 @@
-<html>
-<head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-	<body>
-	<div class = 'pane'>
+{% include 'layouts/header.html' %}
+<div class="container">
 		<div class = 'header'>
-		<h1>{{ restaurant.name }}</h1>
-	</div>
-
-	<a href = '{{url_for('newMenuItem', restaurant_id = restaurant.id) }}'>Create New Item</a>
-
+			<h1>{{ restaurant.name }}</h1>
+		</div>
 
 <div class = 'flash'>
 		      {% with messages = get_flashed_messages() %}
       {% if messages %}
-          
+	  <div class="alert alert-info" role="alert">
         <ul>
         {% for message in messages %}
             <li> <strong> {{ message }} </strong> </li>
         {% endfor %}
         </ul>
+	</div>
         {% endif %}
     {% endwith %}
 
 </div>
-
-
+<div class = 'container'>
+	<div class="row">
+		<a type="button" class="btn btn-success" href = '{{url_for('newMenuItem', restaurant_id = restaurant.id) }}'>Create New Item</a>
+	</div>
+	
+	<hr>
 		{% for i in items %}
-    <div class = 'nameAndPrice'>
-		<span class = 'name'><p>{{i.name}}</p></span>
 
-		<span class = 'price'>
-
-
-		<p>{{i.price}} </p>
-	</span>
+    <div class="row">
+		<div class="col-md-6 ">
+			<span class = 'name'><h5>{{i.name}}</h5></span>
+		</div>
+		<div class="col-md-4 offset-md-2">
+			<span class = 'price'>
+				<p>{{i.price}} </p>
+			</span>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col">
+			<p>{{i.description}}</p>
+		</div>
 	</div>
 
-	
-	
-	<div class = 'description'>
-		<p>{{i.description}}</p>
-	</div>
-
-	
-	
 	<div class = "editdeletepane">
 
-	<a href='{{url_for('editMenuItem',restaurant_id = restaurant.id, menu_id=i.id)}}' >Edit</a>
-	<a href='{{url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id=i.id)}}' >
+	<a type="button" class="btn btn-primary  btn-sm" href='{{url_for('editMenuItem',restaurant_id = restaurant.id, menu_id=i.id)}}' >Edit</a>
+	<a type="button" class="btn btn-danger btn-sm" href='{{url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id=i.id)}}' >
 	Delete</a>
 	</div>
-
-
-
-
+	<hr>
 		{% endfor %}
 
-
-		
-		
-
 </div>
-</div>
-	</body>
-
-
-
-
-</html>
+{% include 'layouts/footer.html' %}
