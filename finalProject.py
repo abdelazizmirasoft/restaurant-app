@@ -2,6 +2,12 @@ from database_setup import Base, Restaurant, MenuItem
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+
+# Login imports
+from flask import session as login_session
+import random
+import string
+
 app = Flask(__name__)
 
 
@@ -138,6 +144,16 @@ def deleteMenuItem(restaurant_id, menu_id):
         return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         return render_template('deletemenuitem.html', restaurant_id=restaurant_id, menu_id=menu_id, item=deletedItem)
+
+
+@app.route('/login')
+def showLogin():
+    # Generate anti-forgery state tokens
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in range(32))
+    login_session['state'] = state
+    return render_template('login.html')
+    # return "The current session state is %s" % login_session['state']
 
 
 if __name__ == '__main__':
